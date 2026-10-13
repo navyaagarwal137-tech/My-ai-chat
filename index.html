@@ -928,6 +928,23 @@
 <div class="toast hidden" id="toast" role="status"></div>
 
 <script>
+  // 1. This is where your code calls the AI server API
+const response = await fetch('YOUR_API_ENDPOINT_URL_HERE', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message: userMessage })
+});
+
+// ⚡ ADD THESE 3 LINES RIGHT HERE:
+if (!response.ok) {
+    console.error("Server crashed or returned HTML:", response.status);
+    return alert(`Connection Error (${response.status}): The server failed to respond correctly.`);
+}
+
+// 2. Your existing code that parses the data (this will no longer crash)
+const data = await response.json();
   const $ = selector => document.querySelector(selector);
 
   function load(key, fallback) {
